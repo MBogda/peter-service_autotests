@@ -7,9 +7,9 @@ Successful authentication
     [Template]    Authentication ${user}/${password} should success
     Andrew    5eCRe7
     Andrew    Andrew
-    # allowed characters in username and password
-    !@#$^&*()_+-=,.<>?;'"[]{}\|${SPACE}    password
-    username    !@#$^&*()_+-=,.<>?;:'"[]{}\|${SPACE}
+    # Allowed characters in username and password
+    !@\#$^&*()_+-=,.<>?;'"[]{}\\|${SPACE}    password
+    username    !@\#$^&*()_+-=,.<>?;:'"[]{}\\|${SPACE}
                 # !@#$%^&*()_+-=.,<>/?;:'"[]{}\|
 
 Failed authentication
