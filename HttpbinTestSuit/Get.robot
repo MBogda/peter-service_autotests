@@ -22,7 +22,7 @@ Not contain headers
 Default headers
     [Template]    GET request should contain default headers
     Host=httpbin.org    User-Agent=python-requests/2.18.4
-    # not very smart: it just checks implementation of HttpbinLibrary (not service http://httpbin.org/ at all)
+    # Not very smart: it just checks implementation of HttpbinLibrary (not service http://httpbin.org/ at all)
     hOsT=httpbin.org    uSeR-aGeNt=python-requests/2.18.4
 
 
