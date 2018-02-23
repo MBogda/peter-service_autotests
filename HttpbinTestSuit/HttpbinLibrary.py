@@ -16,7 +16,6 @@ class HttpbinLibrary:
     def basic_auth(self, url_user, url_password, auth_user, auth_password):
         print(url_user, url_password, sep='::')
         self._response = requests.get(
-            # todo: diff
             self._base_url + 'basic-auth/{}/{}'.format(requests.utils.quote(url_user), requests.utils.quote(url_password)),
             # self._base_url + 'basic-auth/{}/{}'.format(url_user, url_password),
             auth=(auth_user, auth_password)
@@ -41,24 +40,19 @@ class HttpbinLibrary:
         assert self._response.json()['user'] == user, \
             'Username should be {} but was {}'.format(user, self._response.json()['user'])
 
-    def response_should_contain_headers(self, **headers):
+    def response_body_should_contain_headers(self, **headers):
         # print(headers.items())
-        # print(self._response.headers)
+        # print(self._response.text)
         for name, value in headers.items():
             # print(name, value)
-            # assert self._response.headers[name] == value
-            assert self._response.json()['headers'][name] == value
+            assert self._response.json()['headers'][name.title()] == value
 
-    def response_should_not_contain_headers(self, **headers):
-        # print(headers.items())
-        for name, value in headers.items():
-            # assert name not in self._response.headers
-            assert name not in self._response.json()['headers']
+    def response_body_should_not_contain_headers(self, *headers_names):
+        print(headers_names)
+        for name in headers_names:
+            assert name.title() not in self._response.json()['headers']
 
     def number_of_lines_should_be(self, expected_number_of_lines):
         actual_number_of_lines = self._response.text.count('\n')
         assert actual_number_of_lines == int(expected_number_of_lines), \
             'Number of lines should be {} but was {}'.format(expected_number_of_lines, actual_number_of_lines)
-
-    # def trying(self, **kwargs):
-    #     print(kwargs)
