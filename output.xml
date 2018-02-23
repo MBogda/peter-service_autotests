@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.0.2 (Python 3.6.1 on linux)" generated="20180223 15:01:29.604">
+<suite id="s1" name="Get" source="/home/bogdan/Programming/PycharmProjects/Peter-Service_Autotests/HttpbinTestSuit/Get.robot">
+<test id="s1-t1" name="Contain headers">
+<kw name="GET response should contain headers">
+<arguments>
+<arg>&amp;{EMPTY}</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:29.858" endtime="20180223 15:01:30.220"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:30.220" endtime="20180223 15:01:30.221"></status>
+</kw>
+<kw name="and response should contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:30.221" endtime="20180223 15:01:30.221"></status>
+</kw>
+<status status="PASS" starttime="20180223 15:01:29.856" endtime="20180223 15:01:30.222"></status>
+</kw>
+<kw name="GET response should contain headers">
+<arguments>
+<arg>olol=kuku</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:30.223" endtime="20180223 15:01:30.535"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:30.535" endtime="20180223 15:01:30.536"></status>
+</kw>
+<kw name="and response should contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<msg timestamp="20180223 15:01:30.537" level="FAIL">KeyError: 'olol'</msg>
+<status status="FAIL" starttime="20180223 15:01:30.536" endtime="20180223 15:01:30.537"></status>
+</kw>
+<status status="FAIL" starttime="20180223 15:01:30.222" endtime="20180223 15:01:30.538"></status>
+</kw>
+<kw name="GET response should contain headers">
+<arguments>
+<arg>privet=olol</arg>
+<arg>kuku=hello</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:30.539" endtime="20180223 15:01:30.859"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:30.860" endtime="20180223 15:01:30.860"></status>
+</kw>
+<kw name="and response should contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<msg timestamp="20180223 15:01:30.861" level="FAIL">KeyError: 'privet'</msg>
+<status status="FAIL" starttime="20180223 15:01:30.860" endtime="20180223 15:01:30.862"></status>
+</kw>
+<status status="FAIL" starttime="20180223 15:01:30.538" endtime="20180223 15:01:30.862"></status>
+</kw>
+<kw name="GET response should contain headers">
+<arguments>
+<arg>h1=1</arg>
+<arg>h2=2</arg>
+<arg>h3=3</arg>
+<arg>h4=4</arg>
+<arg>h5=5</arg>
+<arg>h6=6</arg>
+<arg>h7=7</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:30.865" endtime="20180223 15:01:31.231"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:31.232" endtime="20180223 15:01:31.233"></status>
+</kw>
+<kw name="and response should contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<msg timestamp="20180223 15:01:31.235" level="FAIL">KeyError: 'h1'</msg>
+<status status="FAIL" starttime="20180223 15:01:31.233" endtime="20180223 15:01:31.235"></status>
+</kw>
+<status status="FAIL" starttime="20180223 15:01:30.862" endtime="20180223 15:01:31.236"></status>
+</kw>
+<status status="FAIL" starttime="20180223 15:01:29.855" endtime="20180223 15:01:31.237" critical="yes">Several failures occurred:
+
+1) KeyError: 'olol'
+
+2) KeyError: 'privet'
+
+3) KeyError: 'h1'</status>
+</test>
+<test id="s1-t2" name="Not contain headers">
+<kw name="GET response should not contain headers">
+<arguments>
+<arg>&amp;{EMPTY}</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<status status="PASS" starttime="20180223 15:01:31.242" endtime="20180223 15:01:31.570"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:31.570" endtime="20180223 15:01:31.571"></status>
+</kw>
+<kw name="and response should not contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:31.571" endtime="20180223 15:01:31.572"></status>
+</kw>
+<status status="PASS" starttime="20180223 15:01:31.240" endtime="20180223 15:01:31.572"></status>
+</kw>
+<kw name="GET response should not contain headers">
+<arguments>
+<arg>olol=kuku</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<status status="PASS" starttime="20180223 15:01:31.574" endtime="20180223 15:01:31.919"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:31.920" endtime="20180223 15:01:31.921"></status>
+</kw>
+<kw name="and response should not contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:31.921" endtime="20180223 15:01:31.922"></status>
+</kw>
+<status status="PASS" starttime="20180223 15:01:31.573" endtime="20180223 15:01:31.922"></status>
+</kw>
+<kw name="GET response should not contain headers">
+<arguments>
+<arg>privet=olol</arg>
+<arg>kuku=hello</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<status status="PASS" starttime="20180223 15:01:31.924" endtime="20180223 15:01:32.244"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:32.244" endtime="20180223 15:01:32.245"></status>
+</kw>
+<kw name="and response should not contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:32.245" endtime="20180223 15:01:32.246"></status>
+</kw>
+<status status="PASS" starttime="20180223 15:01:31.923" endtime="20180223 15:01:32.246"></status>
+</kw>
+<kw name="GET response should not contain headers">
+<arguments>
+<arg>h1=1</arg>
+<arg>h2=2</arg>
+<arg>h3=3</arg>
+<arg>h4=4</arg>
+<arg>h5=5</arg>
+<arg>h6=6</arg>
+<arg>h7=7</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<status status="PASS" starttime="20180223 15:01:32.247" endtime="20180223 15:01:32.566"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:32.566" endtime="20180223 15:01:32.567"></status>
+</kw>
+<kw name="and response should not contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:32.568" endtime="20180223 15:01:32.569"></status>
+</kw>
+<status status="PASS" starttime="20180223 15:01:32.246" endtime="20180223 15:01:32.570"></status>
+</kw>
+<status status="PASS" starttime="20180223 15:01:31.238" endtime="20180223 15:01:32.571" critical="yes"></status>
+</test>
+<test id="s1-t3" name="Default headers">
+<kw name="GET response should contain default headers">
+<arguments>
+<arg>Host=httpbin.org</arg>
+<arg>User-Agent=python-requests/2.18.4</arg>
+</arguments>
+<kw name="When send GET request with headers" library="HttpbinLibrary">
+<status status="PASS" starttime="20180223 15:01:32.575" endtime="20180223 15:01:32.887"></status>
+</kw>
+<kw name="Then status code should be" library="HttpbinLibrary">
+<arguments>
+<arg>${OK}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:32.888" endtime="20180223 15:01:32.888"></status>
+</kw>
+<kw name="and response should contain headers" library="HttpbinLibrary">
+<arguments>
+<arg>&amp;{headers}</arg>
+</arguments>
+<status status="PASS" starttime="20180223 15:01:32.889" endtime="20180223 15:01:32.890"></status>
+</kw>
+<status status="PASS" starttime="20180223 15:01:32.573" endtime="20180223 15:01:32.890"></status>
+</kw>
+<status status="PASS" starttime="20180223 15:01:32.572" endtime="20180223 15:01:32.891" critical="yes"></status>
+</test>
+<status status="FAIL" starttime="20180223 15:01:29.607" endtime="20180223 15:01:32.892"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="2" fail="1">Critical Tests</stat>
+<stat pass="2" fail="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="2" fail="1" id="s1" name="Get">Get</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
