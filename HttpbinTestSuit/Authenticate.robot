@@ -5,33 +5,34 @@ Library    HttpbinLibrary.py
 *** Test Cases ***
 Successful authentication
     [Template]    Authentication ${user}/${password} should success
-    Andrew    5eCRe7
-    Andrew    Andrew
+    # Not empty username and password
+    ${VALID_USERNAME}    ${VALID_PASSWORD}
+    ${VALID_USERNAME}    ${VALID_USERNAME}
+    ${VALID_PASSWORD}    ${VALID_PASSWORD}
+
     # Allowed characters in username and password
-    !@\#$^&*()_+-=,.<>?;'"[]{}\\|${SPACE}    password
-    username    !@\#$^&*()_+-=,.<>?;:'"[]{}\\|${SPACE}
-                # !@#$%^&*()_+-=.,<>/?;:'"[]{}\|
+    ${USERNAME_CHARACTERS}    ${VALID_PASSWORD}
+    ${VALID_USERNAME}    ${PASSWORD_CHARACTERS}
+    ${USERNAME_CHARACTERS}    ${PASSWORD_CHARACTERS}
 
 Failed authentication
-    [Template]    Authentication ${url_user}/${url_password} as ${auth_user}/${auth_password} should fail
+    [Template]    Authentication ${correct_user}/${correct_password} as ${entered_user}/${entered_password} should fail
     # Invalid username
-    Andrew    5eCRe7    Andrev    5eCRe7
+    ${VALID_USERNAME}    ${VALID_PASSWORD}    ${INVALID_USERNAME}    ${VALID_PASSWORD}
     # Invalid password
-    Andrew    5eCRe7    Andrew    5eCReT
+    ${VALID_USERNAME}    ${VALID_PASSWORD}    ${VALID_USERNAME}    ${INVALID_PASSWORD}
     # Invalid username and password
-    Andrew    5eCRe7    andrew    seCRe7
+    ${VALID_USERNAME}    ${VALID_PASSWORD}    ${INVALID_USERNAME}    ${INVALID_PASSWORD}
 
 Invalid authentication request
-# todo? more tests
     [Template]    Authentication ${user}/${password} should fail
     # Empty username
-    ${EMPTY}    5eCRe7
+    ${EMPTY}    ${VALID_PASSWORD}
     # Empty password
-    Andrew    ${EMPTY}
+    ${VALID_USERNAME}    ${EMPTY}
     # Empty username and password
     ${EMPTY}    ${EMPTY}
-    # Andrew    :/?#[]@
-    # Andrew    :?#[]@%
+
 
 *** Keywords ***
 Authentication ${user}/${password} should success
@@ -43,12 +44,23 @@ Authentication ${user:[^/]*}/${password:[^/]*} should fail
     When authenticate ${user}/${password} as ${user}/${password}
     Then status code should be    ${NOT FOUND}
 
-Authentication ${url_user}/${url_password} as ${auth_user}/${auth_password} should fail
-    When authenticate ${url_user}/${url_password} as ${auth_user}/${auth_password}
+Authentication ${correct_user}/${correct_password} as ${entered_user}/${entered_password} should fail
+    When authenticate ${correct_user}/${correct_password} as ${entered_user}/${entered_password}
     Then status code should be    ${UNAUTHORIZED}
 
 
 *** Variables ***
+# Status codes
 ${OK}    200
 ${UNAUTHORIZED}    401
 ${NOT FOUND}    404
+
+# Valid and invalid usernames and passwords
+${VALID_USERNAME}    Andrew
+${INVALID_USERNAME}    andreV
+${VALID_PASSWORD}    5eCRe7
+${INVALID_PASSWORD}    SecreT
+
+# Attention: username can not contain a colon sign (:), but password can.
+${USERNAME_CHARACTERS}    !@\#$^&*()_+-=,.<>?;'"[]{}\\|${SPACE}
+${PASSWORD_CHARACTERS}    !@\#$^&*()_+-=,.<>?;:'"[]{}\\|${SPACE}
