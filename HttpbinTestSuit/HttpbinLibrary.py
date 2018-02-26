@@ -2,7 +2,8 @@
 
 # todo? rename module to httpbin_library.py
 # todo? robot framework documentation
-# todo: why not continue testing after fail in Template test case?
+
+# todo: name columns where applicable
 """Robot Framework library for testing http://httpbin.org/.
 
 Endpoints to test:
@@ -54,7 +55,7 @@ class HttpbinLibrary:
         )
 
     @keyword('Send GET request with headers')
-    def get(self, **headers):
+    def get(self, headers=None):
         """Send GET request and receive GET data in response body.
 
         :param headers: headers to be added to request
@@ -109,7 +110,7 @@ class HttpbinLibrary:
                 self._response.json()['user'],
             )
 
-    def response_body_should_contain_headers(self, **headers):
+    def response_body_should_contain_headers(self, headers):
         """Check if response body contain specified headers.
 
         Should invoke method get first.
@@ -124,7 +125,7 @@ class HttpbinLibrary:
             # print(name, value)
             assert self._response.json()['headers'][name.title()] == value
 
-    def response_body_should_not_contain_headers(self, *headers_names):
+    def response_body_should_not_contain_headers(self, headers_names):
         """Check if response body not contain specified headers.
 
         Should invoke method get first.
