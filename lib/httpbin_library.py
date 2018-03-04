@@ -3,8 +3,8 @@ http://httpbin.org/.
 """
 
 import requests
-from robot.api.deco import keyword
 from robot.api import logger
+from robot.api.deco import keyword
 
 
 class HttpbinLibrary:
