@@ -1,15 +1,6 @@
-# todo: add tags
-
-# todo? rename module to httpbin_library.py
 # todo? add documentation to robot framework files
-
-# todo: name columns where applicable
-"""Robot Framework library for testing http://httpbin.org/.
-
-Endpoints to test:
-    http://httpbin.org/basic-auth/:user/:passwd
-    http://httpbin.org/get
-    http://httpbin.org/stream/:n
+"""Module containing Robot Framework library for testing
+hhtp://httpbin.org/.
 """
 
 import requests
@@ -18,7 +9,13 @@ from robot.api import logger
 
 
 class HttpbinLibrary:
-    """Main (and the only) class of the library."""
+    """Robot Framework library for testing http://httpbin.org/.
+
+    Endpoints to test:
+        http://httpbin.org/basic-auth/:user/:passwd
+        http://httpbin.org/get
+        http://httpbin.org/stream/:n
+    """
 
     _BASE_URL = 'http://httpbin.org/'
 
@@ -28,11 +25,11 @@ class HttpbinLibrary:
 
     def _log_response(self):
         if self._response is not None:
-            logger.info('Status code: ' + str(self._response.status_code))
-            logger.debug('Headers:\n' + str(self._response.headers))
-            logger.info('Response body:\n' + self._response.text)
-            logger.debug('Hexadecimal response body:\n'
-                         + self._response.content.hex())
+            logger.info('Status code: {}'.format(self._response.status_code))
+            logger.debug('Headers:\n{}'.format(self._response.headers))
+            logger.debug('Response body:\n{}'.format(self._response.text))
+            logger.trace('Hexadecimal response body:\n{}'.format(
+                             self._response.content.hex()))
         else:
             logger.warn('Response is None')
 
@@ -99,6 +96,9 @@ class HttpbinLibrary:
         :type expected_status_code: int
         :rtype: None
         """
+        logger.debug('Expected status code: {}'.format(expected_status_code))
+        logger.debug('Actual status code: {}'.format(
+                         self._response.status_code))
         if str(self._response.status_code) != str(expected_status_code):
             raise AssertionError(
                 "Status code should be '{}', but '{}' received.".format(
@@ -106,10 +106,12 @@ class HttpbinLibrary:
                     self._response.status_code,
                 )
             )
+        else:
+            logger.info('Response status code is as expected.')
 
     @keyword('User ${username} should be authenticated')
     def check_authentication(self, username):
-        """Check if user is authenticated with correct username.
+        """Check if user is authenticated and username is correct.
 
         Should invoke HttpbinLibrary.basic_auth first.
 
@@ -123,8 +125,13 @@ class HttpbinLibrary:
                 "Response body does not contain 'authenticated' key.")
         if json_response['authenticated'] is not True:
             raise AssertionError('User is not authenticated.')
+        else:
+            logger.info('User is authenticated.')
+
         if 'user' not in json_response:
             raise AssertionError("Response body does not contain 'user' key.")
+        logger.debug('Expected username: {}'.format(username))
+        logger.debug('Actual username: {}'.format(json_response['user']))
         if json_response['user'] != username:
             raise AssertionError(
                 "Username should be '{}', but '{}' received.".format(
@@ -132,9 +139,11 @@ class HttpbinLibrary:
                     json_response['user'],
                 )
             )
+        else:
+            logger.info('Username is correct.')
 
     def response_body_should_contain_headers(self, headers):
-        """Check if response body contain specified headers.
+        """Check if response body contains specified headers.
 
         Should invoke HttpbinLibrary.get first.
 
@@ -146,21 +155,29 @@ class HttpbinLibrary:
         if 'headers' not in json_response:
             raise AssertionError(
                 "Response body does not contain 'headers' key.")
+
+        logger.debug('Specified headers:\n{}'.format(headers))
+        logger.debug('Actual headers:\n{}'.format(json_response['headers']))
         for name, value in headers.items():
-            titled = name.title()
-            if titled not in json_response['headers']:
+            titled_name = name.title()
+            if titled_name not in json_response['headers']:
                 raise AssertionError(
                     "Response body does not contain '{}' header.".format(
-                        titled)
+                        titled_name)
                 )
-            if json_response['headers'][titled] != value:
+            if json_response['headers'][titled_name] != value:
                 raise AssertionError(
                     "Header '{}' should contain '{}', but '{}'"
-                    " received.".format(titled, value, json_response[titled],)
+                    " received.".format(
+                        titled_name,
+                        value,
+                        json_response[titled_name],
+                    )
                 )
+        logger.info('Response body contains specified headers.')
 
     def response_body_should_not_contain_headers(self, headers_names):
-        """Check if response body not contain specified headers.
+        """Check if response body does not contain specified headers.
 
         Should invoke HttpbinLibrary.get first.
 
@@ -172,14 +189,18 @@ class HttpbinLibrary:
         if 'headers' not in json_response:
             raise AssertionError(
                 "Response body does not contain 'headers' key.")
+
+        logger.debug('Specified header names:\n{}'.format(headers_names))
+        logger.debug('Actual headers:\n{}'.format(json_response['headers']))
         for name in headers_names:
             titled = name.title()
             if titled in json_response['headers']:
                 raise AssertionError("Response body contains '{}' header,"
                                      " but should not.".format(titled))
+        logger.info('Response body does not contain specified headers.')
 
     def number_of_lines_should_be(self, expected_number_of_lines):
-        """Check if number of lines in response body is as expected.
+        """Check if response body contains expected number of lines.
 
         Should invoke HttpbinLibrary.stream first.
 
@@ -187,6 +208,10 @@ class HttpbinLibrary:
         :rtype: None
         """
         actual_number_of_lines = self._response.text.count('\n')
+        logger.debug('Expected number of lines: {}'.format(
+                         expected_number_of_lines))
+        logger.debug('Actual number of lines: {}'.format(
+                         actual_number_of_lines))
         if actual_number_of_lines != int(expected_number_of_lines):
             raise AssertionError(
                 "Number of lines should be '{}', but '{}' received.".format(
@@ -194,3 +219,5 @@ class HttpbinLibrary:
                     actual_number_of_lines,
                 )
             )
+        else:
+            logger.info('Response body contains expected number of lines.')

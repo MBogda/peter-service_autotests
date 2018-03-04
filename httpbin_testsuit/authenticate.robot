@@ -1,5 +1,6 @@
 *** Settings ***
-Library    HttpbinLibrary.py
+Library     httpbin_library.HttpbinLibrary
+Resource    ../res/status_codes.robot
 
 
 *** Test Cases ***
@@ -50,17 +51,13 @@ Authentication ${correct_user}/${correct_password} as ${entered_user}/${entered_
 
 
 *** Variables ***
-# Status codes
-${OK}    200
-${UNAUTHORIZED}    401
-${NOT FOUND}    404
-
 # Valid and invalid usernames and passwords
 ${VALID_USERNAME}    Andrew
 ${INVALID_USERNAME}    andreV
 ${VALID_PASSWORD}    5eCRe7
 ${INVALID_PASSWORD}    SecreT
 
+# Allowed characters in username and password
 # Attention: username can not contain a colon sign (:), but password can.
 ${USERNAME_CHARACTERS}    !@\#$^&*()_+-=,.<>?;'"[]{}\\|${SPACE}
 ${PASSWORD_CHARACTERS}    !@\#$^&*()_+-=,.<>?;:'"[]{}\\|${SPACE}

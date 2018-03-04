@@ -1,5 +1,6 @@
 *** Settings ***
-Library    HttpbinLibrary.py
+Library     httpbin_library.HttpbinLibrary
+Resource    ../res/status_codes.robot
 
 
 *** Test Cases ***
@@ -33,8 +34,3 @@ Stream of ${request_n} lines should be valid and have ${expected_n} lines
 Stream of ${request_n} lines should be invalid
     When get stream of ${request_n} lines
     Then status code should be    ${NOT FOUND}
-
-
-*** Variables ***
-${OK}    200
-${NOT FOUND}    404

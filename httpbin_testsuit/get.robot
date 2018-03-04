@@ -1,8 +1,16 @@
 *** Settings ***
-Library    HttpbinLibrary.py
+Library     httpbin_library.HttpbinLibrary
+Resource    ../res/status_codes.robot
 
 
 *** Test Cases ***
+Not contain headers
+    [Template]    GET request should not contain headers
+    @{EMPTY}
+    test-header
+    Hello    My-test-name
+    h1    h2    h3    h4    h5    h6    h7
+
 Contain headers
     [Template]    GET request should contain headers
     &{EMPTY}
@@ -11,13 +19,6 @@ Contain headers
     h1=1    h2=2    h3=3    h4=4    h5=5    h6=6    h7=7
     # todo: move to separate file or variable
     Some-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-header=Some long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long value
-
-Not contain headers
-    [Template]    GET request should not contain headers
-    @{EMPTY}
-    test-header
-    Hello    My-test-name
-    h1    h2    h3    h4    h5    h6    h7
 
 Default headers
     [Template]    GET request should contain default headers
@@ -44,7 +45,3 @@ GET request should contain default headers
     When send GET request with headers
     Then status code should be    ${OK}
     and response body should contain headers    ${headers}
-
-
-*** Variables ***
-${OK}    200
