@@ -6,13 +6,13 @@ Resource    ../res/status_codes.robot
 *** Test Cases ***
 Valid stream
     [Template]    Stream of ${request_n} lines should be valid and have ${expected_n} lines
-    0    0
-    5    5
-    67    67
-    99    99
-    100    100
-    101    100
-    120    100
+    0             0
+    5             5
+    67            67
+    99            99
+    100           100
+    101           100
+    120           100
     2000000000    100
 
 Invalid stream

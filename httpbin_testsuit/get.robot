@@ -1,29 +1,23 @@
 *** Settings ***
-Library     httpbin_library.HttpbinLibrary
-Resource    ../res/status_codes.robot
+Library      httpbin_library.HttpbinLibrary
+Resource     ../res/status_codes.robot
+Variables    ../res/headers.py
 
 
 *** Test Cases ***
 Not contain headers
-    [Template]    GET request should not contain headers
-    @{EMPTY}
-    test-header
-    Hello    My-test-name
-    h1    h2    h3    h4    h5    h6    h7
+    :FOR    ${headers}    in    @{HEADERS_LIST}
+    \    GET request should not contain headers    @{headers}
 
 Contain headers
-    [Template]    GET request should contain headers
-    &{EMPTY}
-    test-header=Some Data
-    Hello=World    My-test-name=Contain headers
-    h1=1    h2=2    h3=3    h4=4    h5=5    h6=6    h7=7
-    # todo: move to separate file or variable
-    Some-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-long-header=Some long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long long value
+    :FOR    ${headers}    in    @{HEADERS_LIST}
+    \    GET request should contain headers    &{headers}
 
 Default headers
     [Template]    GET request should contain default headers
     Host=httpbin.org    User-Agent=python-requests/2.18.4
-    # Not very smart: the sample below just checks implementation of HttpbinLibrary (not service http://httpbin.org/ at all)
+    # Not very smart: the sample below just checks implementation of
+    # HttpbinLibrary (not service http://httpbin.org/ at all)
     hOsT=httpbin.org    uSeR-aGeNt=python-requests/2.18.4
 
 
