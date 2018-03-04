@@ -1,6 +1,5 @@
-# todo? add documentation to robot framework files
 """Module containing Robot Framework library for testing
-hhtp://httpbin.org/.
+http://httpbin.org/.
 """
 
 import requests
